@@ -13,7 +13,7 @@ surveyApp.controller('addUserCtrl', ['$scope','$localStorage','$sessionStorage',
        
 		$scope.personAr = [   
             {uName:"Ajay", uID:"3832", uEmail:"ajayd@synechron.com",uPass:"ajay4321", status: "Active", uType:"user",compName:"synechron"},
-            {uName:"Garima", uID:"5832", uEmail:"vikasa@synechron.com",uPass:"garima4321", status: "Active", uType:"admin",compName:"synechron"}
+            {uName:"Garima", uID:"5832", uEmail:"garimas@synechron.com",uPass:"garima4321", status: "Active", uType:"admin",compName:"synechron"}
 		];
     
          $scope.storage.saveddata = ( typeof $scope.storage.saveddata !== "undefined" ) ? $scope.storage.saveddata : $scope.personAr;
