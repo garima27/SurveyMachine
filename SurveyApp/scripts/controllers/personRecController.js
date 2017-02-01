@@ -1,44 +1,52 @@
 //Defined Angular Module
-var assignMentApp = angular.module('surveyApp', []);
+var surveyApp = angular.module('surveyApp', ['ngStorage']);
 
 //Defined Controller, that have the functionality to ad records
-assignMentApp.controller('addUserCtrl', ['$scope',function($scope) {
-
+surveyApp.controller('addUserCtrl', ['$scope','$localStorage','$sessionStorage',function($scope,$localStorage, $sessionStorage) {
     
-     // Default Person details/records
+        //Assigning $localstorage to $session.storage 
+        $scope.storage = $localStorage;
+    
+       // Default Person details/records
+        $scope.appTitle="Survey Application";//Survey Application
+       
+       
 		$scope.personAr = [   
-            {name:"Ajay Dixit", email:"ajayd@synechron.com",phonemodel:"Moto E 2nd Gen", status: "Active", purchasedate:"2016-12-01"},
-            {name:"Arun Phad", email:"arunpd@synechron.com",phonemodel:"Moto G4", status: "Brand New", purchasedate:"2017-01-18"},
-            {name:"Pandurang", email:"pandurangc@synechron.com",phonemodel:"Windows", status: "Positive", purchasedate:"2015-12-01"
-            },
-            {name:"Vikas Anand", email:"vikasa@synechron.com",phonemodel:"HTC", status: "Positive", purchasedate:"2014-12-01"
-            }
+            {uName:"Ajay", uID:"3832", uEmail:"ajayd@synechron.com",uPass:"ajay4321", status: "Active", uType:"user",compName:"synechron"},
+            {uName:"Garima", uID:"5832", uEmail:"vikasa@synechron.com",uPass:"garima4321", status: "Active", uType:"admin",compName:"synechron"}
 		];
+    
+         $scope.storage.saveddata = ( typeof $scope.storage.saveddata !== "undefined" ) ? $scope.storage.saveddata : $scope.personAr;
+         $scope.personAr=$scope.storage.saveddata ;
+    
         // To reset the fields after submit form
         $scope.Reset = function () {
             $scope.newName = '';
             $scope.newEmail = '';
-            $scope.newPhoneModel = '';
+            $scope.newPass = '';
             $scope.newStatus = '';
-            $scope.newPurchaseDate = '';
+            $scope.newCompName = '';
         }
 
         
         $scope.addRecords = function () {
-            
             //Will retun if form is inValid or blank
             if (!$scope.userForm.$valid) {
                 return;
             }
             $scope.personAr.push({
-                name: $scope.newName,
-                email: $scope.newEmail,
-                phonemodel: $scope.newPhoneModel,
+                uName: $scope.newName,
+                uID: $scope.newID,
+                uEmail: $scope.newEmail,
+                uPass: $scope.newPass,
                 status: $scope.newStatus,
-                purchasedate: $scope.newPurchaseDate
+                uType: $scope.newUserType,
+                compName: $scope.newCompName
             });
+            //This saves the data to the local storage
+            $scope.storage.saveddata=$scope.personAr;
+    
              //console.log("Person Data:  "+$scope.personAr[$scope.personAr.length-1].name);
-           
             // After submit data, blank all fields
             $scope.Reset();
         }

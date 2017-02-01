@@ -14,19 +14,41 @@
             color: dodgerblue;
         }
          th { /*cursor: pointer*/ }
-  
     </style>
     
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="./scripts/controllers/personRecController.js"></script>
 </head>
   
 <body data-ng-controller="addUserCtrl">
     <div class="container">
         <div class="col-sm-8 col-sm-offset-2">
-            <div class="page-header"><h1 class="copyColor">Survey Application</h1></div>
+            <div class="page-header"><h1 class="copyColor">{{appTitle}}</h1></div>
+            
+            <!--This table is for now to se the data, will be commented/removed from code-->
+             <table class="table copyColor">
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Login ID/Email</th>
+                    <th>Password</th>
+                    <th>Survey Status</th>
+                    <th>User Type</th>
+                    <th>Company Name</th>
+                  </tr>
+                <tr data-ng-repeat="record in personAr | orderBy:type:reverse">
+                    <td>{{record.uName | uppercase}}</td>
+                    <td>{{record.uID}}</td>
+                    <td>{{record.uEmail}}</td>
+                    <td>{{record.uPass}}</td>
+                    <td>{{record.status}}</td>
+                    <td>{{record.uType}}</td>
+                    <td>{{record.compName}}</td>
+                </tr>
+            </table>
             <!-- Form to add records -->
             <form name="userForm" data-ng-submit="addRecords()" class="formElem">
                     <div class="form-group">
@@ -49,6 +71,7 @@
                             <option value="Inactive">Deactive</option>
                         </select>
                     </div>
+                
                     <!--<div class="form-group">
                         <label>User Type</label>
                          <select class="form-control" name="userType" type="text" data-ng-model="newUtype" required>
@@ -61,9 +84,9 @@
 
                     <div class="form-group">
                         <label>Company Name:</label>
-                       <input class="form-control" name="company" type="text" placeholder="Enter Valid Password" data-ng-model="newCompName" required>
+                       <input class="form-control" name="company" type="text" placeholder="Enter Company Name" data-ng-model="newCompName" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Records</button>
+                    <button type="submit" class="btn btn-primary">Add User</button>
                 </form>
         </div>
     </div>
